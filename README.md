@@ -6,6 +6,12 @@
 
 Checks if a string has required substrings after given sums.
 
+## Related Packages
+
+https://github.com/pelevesque/has_required_substrings_at_indexes    
+https://github.com/pelevesque/has_prohitibed_substring_at_sums  
+https://github.com/pelevesque/has_prohibited_substring_at_indexes  
+
 ## Node Repository
 
 https://www.npmjs.com/package/@pelevesque/has_required_substrings_at_sums
