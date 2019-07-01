@@ -1,6 +1,6 @@
 {
   "name": "@pelevesque/has_required_substrings_at_sums",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Checks if a string has required substrings after given sums.",
   "main": "index.js",
   "engines": {
