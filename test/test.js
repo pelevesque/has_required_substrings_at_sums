@@ -14,7 +14,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
       expect(result).to.equal(expected)
     })
 
-    it('should return false when str is empty and some required substrings are defined', () => {
+    it('should return false when str is empty, but requiredSubstrings is not empty', () => {
       const str = ''
       const requiredSubstrings = { 0: 'a' }
       const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -25,7 +25,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
 
   describe('basic summing', () => {
     describe('single character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '123a45'
         const requiredSubstrings = { 1: 'a' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -33,15 +33,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '123a45'
-        const requiredSubstrings = { 6: 'a' }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123za5'
         const requiredSubstrings = { 6: 'a' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -49,7 +41,15 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '123a45'
+        const requiredSubstrings = { 6: 'a' }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1a2b3c45'
         const requiredSubstrings = { 1: 'a', 3: 'b', 10: 'a' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -57,7 +57,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1a2b3c45'
         const requiredSubstrings = { 1: 'a', 3: 'b', 6: 'c' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -67,7 +67,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
     })
 
     describe('multi character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '123abc45'
         const requiredSubstrings = { 1: 'abc' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -75,15 +75,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '123abc45'
-        const requiredSubstrings = { 6: 'abc' }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123zabc5'
         const requiredSubstrings = { 6: 'abc' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -91,7 +83,15 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '123abc45'
+        const requiredSubstrings = { 6: 'abc' }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1abc2bcd3cde45'
         const requiredSubstrings = { 1: 'abc', 3: 'bcd', 10: 'a' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -99,7 +99,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1abc2bcd3cde45'
         const requiredSubstrings = { 1: 'abc', 3: 'bcd', 6: 'cde' }
         const result = hasRequiredSubstringsAtSums(str, requiredSubstrings)
@@ -135,7 +135,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
 
   describe('substringsToDigits summing', () => {
     describe('single character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '1!a'
         const requiredSubstrings = { 1: 'a' }
         const substringsToDigits = { '!': 2 }
@@ -146,18 +146,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '1!a'
-        const requiredSubstrings = { 3: 'a' }
-        const substringsToDigits = { '!': 2 }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
-          substringsToDigits: substringsToDigits
-        })
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123!za5'
         const requiredSubstrings = { 10: 'a' }
         const substringsToDigits = { '!': 4 }
@@ -168,7 +157,18 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '1!a'
+        const requiredSubstrings = { 3: 'a' }
+        const substringsToDigits = { '!': 2 }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
+          substringsToDigits: substringsToDigits
+        })
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1!a2@b3#c'
         const requiredSubstrings = { 5: 'a', 12: 'b', 1: 'c' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -179,7 +179,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1!a2@b3#c'
         const requiredSubstrings = { 5: 'a', 12: 'b', 21: 'c' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -192,7 +192,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
     })
 
     describe('multi character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '1!abc'
         const requiredSubstrings = { 1: 'abc' }
         const substringsToDigits = { '!': 2 }
@@ -203,18 +203,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '1!abc'
-        const requiredSubstrings = { 3: 'abc' }
-        const substringsToDigits = { '!': 2 }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
-          substringsToDigits: substringsToDigits
-        })
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123!zabc5'
         const requiredSubstrings = { 10: 'abc' }
         const substringsToDigits = { '!': 4 }
@@ -225,7 +214,18 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '1!abc'
+        const requiredSubstrings = { 3: 'abc' }
+        const substringsToDigits = { '!': 2 }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
+          substringsToDigits: substringsToDigits
+        })
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1!abc2@bcd3#cde'
         const requiredSubstrings = { 5: 'abc', 12: 'bcd', 1: 'cde' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -236,7 +236,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1!abc2@bcd3#cde'
         const requiredSubstrings = { 5: 'abc', 12: 'bcd', 21: 'cde' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -249,7 +249,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
     })
 
     describe('multi character substringsToDigits', () => {
-      it('should return false when some substrings are not found', () => {
+      it('should return false when some of many substrings are not found', () => {
         const str = '1!!!abc2!!!@bcd3###@cde'
         const requiredSubstrings = { 5: 'abc', 16: 'bcd', 1: 'cde' }
         const substringsToDigits = { '!!!': 4, '@': 5, '###': 6 }
@@ -260,7 +260,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1!!!abc2!!!@bcd3###@cde'
         const requiredSubstrings = { 5: 'abc', 16: 'bcd', 30: 'cde' }
         const substringsToDigits = { '!!!': 4, '@': 5, '###': 6 }
@@ -303,7 +303,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
 
   describe('sumPlainDigits', () => {
     describe('single character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '1!a'
         const requiredSubstrings = { 3: 'a' }
         const substringsToDigits = { '!': 2 }
@@ -315,19 +315,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '1!a'
-        const requiredSubstrings = { 2: 'a' }
-        const substringsToDigits = { '!': 2 }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
-          substringsToDigits: substringsToDigits,
-          sumPlainDigits: false
-        })
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123!za5'
         const requiredSubstrings = { 4: 'a' }
         const substringsToDigits = { '!': 4 }
@@ -339,7 +327,19 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '1!a'
+        const requiredSubstrings = { 2: 'a' }
+        const substringsToDigits = { '!': 2 }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
+          substringsToDigits: substringsToDigits,
+          sumPlainDigits: false
+        })
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1!a2@b3#c'
         const requiredSubstrings = { 4: 'a', 9: 'b', 1: 'c' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -351,7 +351,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1!a2@b3#c'
         const requiredSubstrings = { 4: 'a', 9: 'b', 15: 'c' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -365,7 +365,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
     })
 
     describe('multi character substrings', () => {
-      it('should return false when one substring is not found', () => {
+      it('should return false when one of one substring is not found', () => {
         const str = '1!abc'
         const requiredSubstrings = { 3: 'abc' }
         const substringsToDigits = { '!': 2 }
@@ -377,19 +377,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when one substring is found', () => {
-        const str = '1!abc'
-        const requiredSubstrings = { 2: 'abc' }
-        const substringsToDigits = { '!': 2 }
-        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
-          substringsToDigits: substringsToDigits,
-          sumPlainDigits: false
-        })
-        const expected = true
-        expect(result).to.equal(expected)
-      })
-
-      it('should return false when substring is not immediately after sum', () => {
+      it('should return false when the substring is not immediately after the sum', () => {
         const str = '123!zabc5'
         const requiredSubstrings = { 4: 'abc' }
         const substringsToDigits = { '!': 4 }
@@ -401,7 +389,19 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return false when some substrings are not found', () => {
+      it('should return true when one of one substring is found', () => {
+        const str = '1!abc'
+        const requiredSubstrings = { 2: 'abc' }
+        const substringsToDigits = { '!': 2 }
+        const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
+          substringsToDigits: substringsToDigits,
+          sumPlainDigits: false
+        })
+        const expected = true
+        expect(result).to.equal(expected)
+      })
+
+      it('should return false when some of many substrings are not found', () => {
         const str = '1!abc2@bcd3#cde'
         const requiredSubstrings = { 4: 'abc', 9: 'bcd', 1: 'cde' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
@@ -413,7 +413,7 @@ describe('#hasRequiredSubstringsAtSums()', () => {
         expect(result).to.equal(expected)
       })
 
-      it('should return true when all substrings are found', () => {
+      it('should return true when all of many substrings are found', () => {
         const str = '1!abc2@bcd3#cde'
         const requiredSubstrings = { 4: 'abc', 9: 'bcd', 15: 'cde' }
         const substringsToDigits = { '!': 4, '@': 5, '#': 6 }
