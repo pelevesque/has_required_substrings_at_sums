@@ -119,8 +119,8 @@ const result = hasRequiredSubstringsAtSums(str, requiredSubstrings, {
 ### AllowSubstringBleeding Flag
 
 The `allowSubstringBleeding` flag is `false` by default. It it used when you want
-to allow the last required substring to be incomplete if the string is too short.
-In the following example, the last substring `canal` starts after the right sum,
+to allow the last substring to be incomplete if the string is too short.
+In the following example, the last substring `canal` starts at the correct index,
 but remains incomplete since the string ends. Normally this would return `false`.
 With `allowSubstringBleeding` set to `true`, it returns `true`.
 
