@@ -2,8 +2,7 @@
 
 const sumDigits = require('@pelevesque/sum-digits')
 
-const isObjectEmpty = (obj) =>
-  Object.entries(obj).length === 0 && obj.constructor === Object
+const isObjectEmpty = (obj) => Object.entries(obj).length === 0
 
 module.exports = (str, requiredSubstrings,
   {
@@ -14,13 +13,14 @@ module.exports = (str, requiredSubstrings,
 ) => {
   if (isObjectEmpty(requiredSubstrings)) return true
   if (!isObjectEmpty(requiredSubstrings) && str === '') return false
+  const requiredSubstringsClone = Object.assign({}, requiredSubstrings)
   for (let i = 0, len = str.length; i < len; i++) {
     const sum = sumDigits(str.substr(0, i + 1), {
       substringsToDigits: substringsToDigits,
       sumPlainDigits: sumPlainDigits
     })
-    if (requiredSubstrings.hasOwnProperty(sum)) {
-      let substring = requiredSubstrings[sum]
+    if (requiredSubstringsClone.hasOwnProperty(sum)) {
+      let substring = requiredSubstringsClone[sum]
       if (allowSubstringBleeding) {
         const substringMaxLength = str.length - i - 1
         if (substring.length > substringMaxLength) {
@@ -31,9 +31,9 @@ module.exports = (str, requiredSubstrings,
       if (substring.localeCompare(target) !== 0) {
         break
       } else {
-        delete requiredSubstrings[sum]
+        delete requiredSubstringsClone[sum]
       }
     }
   }
-  return isObjectEmpty(requiredSubstrings)
+  return isObjectEmpty(requiredSubstringsClone)
 }
